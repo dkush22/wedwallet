@@ -44,12 +44,29 @@ const LoginPage: React.FC = () => {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    // Add your login logic here, e.g., calling an API
-    const success = true; // replace with real logic
-    if (success) {
-      navigate('/dashboard');
-    } else {
-      alert('Login failed, please try again.');
+
+    try {
+      const response = await fetch('http://localhost:3001/login', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          email: email,
+          password: password,
+        }),
+      });
+
+      if (response.ok) {
+        const data = await response.json();
+        navigate(`/welcome?firstName=${data.user.first_name}&lastName=${data.user.last_name}`);
+      } else {
+        const errorData = await response.json();
+        alert(errorData.errors.join(", "));
+      }
+    } catch (error) {
+      console.error('Error:', error);
+      alert('An error occurred. Please try again.');
     }
   };
 
