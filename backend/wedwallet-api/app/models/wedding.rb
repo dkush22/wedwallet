@@ -5,6 +5,9 @@ class Wedding < ApplicationRecord
   has_many :guests, dependent: :destroy
   has_many :guest_users, through: :guests, source: :user
 
+  has_many :cards
+  has_many :gifts
+
   validates :title, :date, :location, presence: true
 
   def self.create_with_host(user, attributes)

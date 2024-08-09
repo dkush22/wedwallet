@@ -1,0 +1,19 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  sender: one
+  recipient: one
+  wedding: one
+  message: MyText
+  card_type: MyString
+  photo: MyString
+  video: MyString
+
+two:
+  sender: two
+  recipient: two
+  wedding: two
+  message: MyText
+  card_type: MyString
+  photo: MyString
+  video: MyString
