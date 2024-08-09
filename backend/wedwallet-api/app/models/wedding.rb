@@ -1,10 +1,8 @@
 class Wedding < ApplicationRecord
-  has_many :hosts, dependent: :destroy
-  has_many :users, through: :hosts
-
-  has_many :guests, dependent: :destroy
-  has_many :guest_users, through: :guests, source: :user
-
+  belongs_to :primary_host, class_name: 'User', foreign_key: 'host_id'
+  belongs_to :secondary_host, class_name: 'User', foreign_key: 'second_host_id', optional: true
+  has_many :guests
+  has_many :attendees, through: :guests, source: :user
   has_many :cards
   has_many :gifts
 

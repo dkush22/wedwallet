@@ -12,6 +12,33 @@ class WeddingsController < ApplicationController
         render :new
       end
     end
+
+    def my_wedding
+      wedding = @current_user.wedding
+      if wedding
+        render json: wedding, status: :ok
+      else
+        render json: { error: 'No wedding found' }, status: :not_found
+      end
+    end
+
+    def upcoming
+      upcoming_weddings = @current_user.guests.joins(:wedding)
+                                .where('weddings.date >= ?', Date.today)
+                                .order('weddings.date ASC')
+                                .select('weddings.*')
+  
+      render json: upcoming_weddings, status: :ok
+    end
+
+    def past
+      past_weddings = @current_user.guests.joins(:wedding)
+                               .where('weddings.date < ?', Date.today)
+                               .order('weddings.date DESC')
+                               .select('weddings.*')
+  
+      render json: past_weddings, status: :ok
+    end
   
     private
   

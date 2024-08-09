@@ -8,9 +8,10 @@ class User < ApplicationRecord
   validates :password, length: { minimum: 6 }, if: -> { new_record? || !password.nil? }
   
   # Relationships
-  has_many :hosts, dependent: :destroy
-  has_many :weddings, through: :hosts
-  has_many :guests, dependent: :destroy
+  has_many :primary_weddings, class_name: 'Wedding', foreign_key: 'host_id'
+  has_many :secondary_weddings, class_name: 'Wedding', foreign_key: 'second_host_id'
+  has_many :guests
+  has_many :attended_weddings, through: :guests, source: :wedding
   has_many :sent_cards, class_name: 'Card', foreign_key: 'sender_id'
   has_many :received_cards, class_name: 'Card', foreign_key: 'recipient_id'
   has_many :sent_gifts, class_name: 'Gift', foreign_key: 'sender_id'

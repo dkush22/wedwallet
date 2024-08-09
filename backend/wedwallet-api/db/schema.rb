@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2024_08_09_165531) do
+ActiveRecord::Schema[7.1].define(version: 2024_08_09_191225) do
   create_table "active_storage_attachments", force: :cascade do |t|
     t.string "name", null: false
     t.string "record_type", null: false
@@ -101,6 +101,10 @@ ActiveRecord::Schema[7.1].define(version: 2024_08_09_165531) do
     t.string "location"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.integer "host_id"
+    t.integer "second_host_id"
+    t.index ["host_id"], name: "index_weddings_on_host_id"
+    t.index ["second_host_id"], name: "index_weddings_on_second_host_id"
   end
 
   add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"

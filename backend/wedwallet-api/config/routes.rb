@@ -4,6 +4,9 @@ Rails.application.routes.draw do
   resources :users, only: [:create, :show, :index]
 
   get 'current_user', to: 'users#show_current_user'
+  get 'my_wedding', to: 'weddings#my_wedding'
+  get 'weddings/upcoming', to: 'weddings#upcoming'
+  get 'weddings/past', to: 'weddings#past'
 
   # Authentication routes
   post 'login', to: 'sessions#create'

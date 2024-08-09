@@ -13,8 +13,19 @@ class UsersController < ApplicationController
       render json: @user
     end
 
+    
     def show_current_user
-      render json: { first_name: @current_user.first_name, last_name: @current_user.last_name, email: @current_user.email }
+      user = @current_user
+      my_wedding = user.primary_weddings.first || user.secondary_weddings.first
+      render json: {
+        first_name: user.first_name,
+        last_name: user.last_name,
+        email: user.email,
+        my_wedding: my_wedding,
+        upcoming_weddings: user.attended_weddings.where('date >= ?', Date.today),
+        past_weddings: user.attended_weddings.where('date < ?', Date.today)
+      }
+      
     end
   
     def create
