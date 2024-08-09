@@ -46,14 +46,36 @@ const SignupPage: React.FC = () => {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    // Add your signup logic here, e.g., calling an API
-    const success = true; // replace with real logic
-    if (success) {
-      navigate('/dashboard');
-    } else {
-      alert('Signup failed, please try again.');
+  
+    try {
+      const response = await fetch('http://localhost:3001/users', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          user: {
+            first_name: firstName,
+            last_name: lastName,
+            email: email,
+            password: password,
+          },
+        }),
+      });
+  
+      if (response.ok) {
+        const data = await response.json();
+        navigate(`/welcome?firstName=${data.user.first_name}&lastName=${data.user.last_name}`);
+      } else {
+        const errorData = await response.json();
+        alert(errorData.errors.join(", "));
+      }
+    } catch (error) {
+      console.error('Error:', error);
+      alert('An error occurred. Please try again.');
     }
-  };
+  }; 
+  
 
   return (
     <Container>
