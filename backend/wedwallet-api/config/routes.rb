@@ -1,6 +1,9 @@
 Rails.application.routes.draw do
+
   # User routes
   resources :users, only: [:create, :show, :index]
+
+  get 'current_user', to: 'users#show_current_user'
 
   # Authentication routes
   post 'login', to: 'sessions#create'

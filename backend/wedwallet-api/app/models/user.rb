@@ -5,7 +5,7 @@ class User < ApplicationRecord
   validates :first_name, presence: true
   validates :last_name, presence: true
   validates :email, presence: true, uniqueness: true, format: { with: URI::MailTo::EMAIL_REGEXP }
-  validates :password, presence: true, format: { with: /\A(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$&*]).{6,}\z/, message: "must be at least 6 characters long, include one number, and one special character" }
+  validates :password, length: { minimum: 6 }, if: -> { new_record? || !password.nil? }
   
   # Relationships
   has_many :hosts, dependent: :destroy

@@ -4,6 +4,7 @@ import LandingPage from './components/LandingPage';
 import LoginPage from './components/LoginPage';
 import SignupPage from './components/SignupPage';
 import WelcomePage from './components/WelcomePage';
+import PrivateRoute from './components/PrivateRoute';
 
 const App: React.FC = () => {
   return (
@@ -12,7 +13,7 @@ const App: React.FC = () => {
         <Route path="/" element={<LandingPage />} />
         <Route path="/login" element={<LoginPage />} />
         <Route path="/signup" element={<SignupPage />} />
-        <Route path="/welcome" element={<WelcomePage />} />
+        <Route path="/welcome" element={<PrivateRoute element={WelcomePage} />} />
       </Routes>
     </Router>
   );

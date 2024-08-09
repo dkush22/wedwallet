@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
 
@@ -37,14 +37,24 @@ const Button = styled.button`
   }
 `;
 
+const isAuthenticated = () => {
+  return !!localStorage.getItem('authToken');
+};
+
 const LoginPage: React.FC = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const navigate = useNavigate();
 
+  useEffect(() => {
+    if (isAuthenticated()) {
+      navigate('/welcome');
+    }
+  }, [navigate]);
+
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-
+  
     try {
       const response = await fetch('http://localhost:3001/login', {
         method: 'POST',
@@ -56,10 +66,11 @@ const LoginPage: React.FC = () => {
           password: password,
         }),
       });
-
+  
       if (response.ok) {
         const data = await response.json();
-        navigate(`/welcome?firstName=${data.user.first_name}&lastName=${data.user.last_name}`);
+        localStorage.setItem('authToken', data.authToken); // Store JWT in localStorage
+        navigate('/welcome');
       } else {
         const errorData = await response.json();
         alert(errorData.errors.join(", "));
@@ -68,7 +79,7 @@ const LoginPage: React.FC = () => {
       console.error('Error:', error);
       alert('An error occurred. Please try again.');
     }
-  };
+  };  
 
   return (
     <Container>
