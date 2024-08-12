@@ -7,6 +7,7 @@ Rails.application.routes.draw do
   get 'my_wedding', to: 'weddings#my_wedding'
   get 'weddings/upcoming', to: 'weddings#upcoming'
   get 'weddings/past', to: 'weddings#past'
+  get 'gifts/download_csv', to: 'gifts#download_csv', as: 'download_gifts_csv'
 
   # Authentication routes
   post 'login', to: 'sessions#create'

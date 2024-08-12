@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
 import { Wedding } from '../types';
+import HamburgerMenu from '../components/HamburgerMenu';
 
 const Container = styled.div`
   display: flex;
@@ -9,39 +10,7 @@ const Container = styled.div`
   align-items: center;
   justify-content: center;
   padding: 20px;
-`;
-
-const Row = styled.div`
-  display: flex;
-  justify-content: space-between;
-  width: 100%;
-`;
-
-const Column = styled.div`
-  flex: 1;
-  margin: 10px;
-  padding: 20px;
-  background-color: #f9f9f9;
-  border-radius: 10px;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-`;
-
-const Heading = styled.h2`
-  text-align: center;
-  margin-bottom: 20px;
-`;
-
-const Button = styled.button`
-  padding: 10px;
-  font-size: 1rem;
-  background-color: #dc3545;
-  color: #fff;
-  border: none;
-  border-radius: 5px;
-  cursor: pointer;
-  &:hover {
-    background-color: #c82333;
-  }
+  position: relative;
 `;
 
 
@@ -90,6 +59,7 @@ const WelcomePage: React.FC = () => {
     }
   }, [navigate]);
 
+
   const handleLogout = () => {
     localStorage.removeItem('authToken');
     navigate('/');
@@ -97,50 +67,8 @@ const WelcomePage: React.FC = () => {
 
   return (
     <Container>
+      <HamburgerMenu />
       <h1>Welcome {user.firstName} {user.lastName}</h1>
-      <Row>
-        <Column>
-          <Heading>My Wedding</Heading>
-          {myWedding ? (
-            <div>
-              <h3>{myWedding.title}</h3>
-              <p>{myWedding.date}</p>
-              <p>{myWedding.location}</p>
-            </div>
-          ) : (
-            <p>You haven't created a wedding yet.</p>
-          )}
-        </Column>
-        <Column>
-          <Heading>Upcoming Weddings</Heading>
-          {upcomingWeddings.length > 0 ? (
-            upcomingWeddings.map((wedding, index) => (
-              <div key={index}>
-                <h3>{wedding.title}</h3>
-                <p>{wedding.date}</p>
-                <p>{wedding.location}</p>
-              </div>
-            ))
-          ) : (
-            <p>No upcoming weddings.</p>
-          )}
-        </Column>
-        <Column>
-          <Heading>Past Weddings</Heading>
-          {pastWeddings.length > 0 ? (
-            pastWeddings.map((wedding, index) => (
-              <div key={index}>
-                <h3>{wedding.title}</h3>
-                <p>{wedding.date}</p>
-                <p>{wedding.location}</p>
-              </div>
-            ))
-          ) : (
-            <p>No past weddings.</p>
-          )}
-        </Column>
-      </Row>
-      <Button onClick={handleLogout}>Logout</Button>
     </Container>
   );
 };

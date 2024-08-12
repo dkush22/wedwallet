@@ -1,10 +1,12 @@
 import React from 'react';
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
-import LandingPage from './components/LandingPage';
-import LoginPage from './components/LoginPage';
-import SignupPage from './components/SignupPage';
-import WelcomePage from './components/WelcomePage';
+import LandingPage from './pages/LandingPage';
+import LoginPage from './pages/LoginPage';
+import SignupPage from './pages/SignupPage';
+import WelcomePage from './pages/WelcomePage';
+import MyWeddingPage from './pages/MyWeddingPage';
 import PrivateRoute from './components/PrivateRoute';
+
 
 const App: React.FC = () => {
   return (
@@ -14,6 +16,7 @@ const App: React.FC = () => {
         <Route path="/login" element={<LoginPage />} />
         <Route path="/signup" element={<SignupPage />} />
         <Route path="/welcome" element={<PrivateRoute element={WelcomePage} />} />
+        <Route path="/my_wedding" element={<MyWeddingPage />} />
       </Routes>
     </Router>
   );
