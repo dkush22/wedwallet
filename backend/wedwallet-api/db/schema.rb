@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2024_08_09_191225) do
+ActiveRecord::Schema[7.1].define(version: 2024_08_12_160834) do
   create_table "active_storage_attachments", force: :cascade do |t|
     t.string "name", null: false
     t.string "record_type", null: false
@@ -52,6 +52,13 @@ ActiveRecord::Schema[7.1].define(version: 2024_08_09_191225) do
     t.index ["recipient_id"], name: "index_cards_on_recipient_id"
     t.index ["sender_id"], name: "index_cards_on_sender_id"
     t.index ["wedding_id"], name: "index_cards_on_wedding_id"
+  end
+
+  create_table "couples", force: :cascade do |t|
+    t.integer "partner1_id"
+    t.integer "partner2_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   create_table "gifts", force: :cascade do |t|
@@ -102,18 +109,16 @@ ActiveRecord::Schema[7.1].define(version: 2024_08_09_191225) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.integer "host_id"
-    t.integer "second_host_id"
     t.index ["host_id"], name: "index_weddings_on_host_id"
-    t.index ["second_host_id"], name: "index_weddings_on_second_host_id"
   end
 
   add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
   add_foreign_key "active_storage_variant_records", "active_storage_blobs", column: "blob_id"
-  add_foreign_key "cards", "recipients"
-  add_foreign_key "cards", "senders"
+  add_foreign_key "cards", "users", column: "recipient_id"
+  add_foreign_key "cards", "users", column: "sender_id"
   add_foreign_key "cards", "weddings"
-  add_foreign_key "gifts", "recipients"
-  add_foreign_key "gifts", "senders"
+  add_foreign_key "gifts", "users", column: "recipient_id"
+  add_foreign_key "gifts", "users", column: "sender_id"
   add_foreign_key "gifts", "weddings"
   add_foreign_key "guests", "users"
   add_foreign_key "guests", "weddings"

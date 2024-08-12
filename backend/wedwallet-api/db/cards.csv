@@ -1,0 +1,10 @@
+sender_id,recipient_id,wedding_id,message,card_type
+1,5,3,"We love you!","wedding"
+1,8,4,"Congrats","wedding"
+3,1,1,"Mazel Tov","wedding"
+5,1,1,"This is a card!!!","wedding"
+5,7,4,"What??!?! You are married","wedding"
+7,1,1,"Helllooo","wedding"
+7,5,3,"This is a test card","wedding"
+1,7,1,"Thank you so much for the gift. We love you","thank_you"
+5,1,3,"Thanks for the gift","thank_you"

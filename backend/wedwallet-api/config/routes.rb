@@ -17,5 +17,6 @@ Rails.application.routes.draw do
     # Nested routes for managing cards and gifts within a wedding
     resources :cards, only: [:new, :create]
     resources :gifts, only: [:new, :create]
+    resources :couples, only: [:index, :show, :create, :update, :destroy]
   end
 end
